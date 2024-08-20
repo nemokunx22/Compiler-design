@@ -1,3 +1,11 @@
-int a,b,c;
-//the comment 
-a=b+c;
+/* multi comment1
+comment2
+*/
+
+#include<stdio.h>
+void main()
+{
+	int a,=5,b=6,c;//line comment
+	c = a+b;
+	printf("sum is %d\n",c);
+}
