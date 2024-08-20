@@ -1,26 +1,30 @@
-//Akash V V
-//Roll no : 09
+//akash v v
+//Roll no 09
 %{
-#include<stdio.h>
-int sc=0,wc=0,lc=0,cc=0;
+#include <stdio.h>
+int char_count = 0;
+int word_count = 0;
+int line_count = 0;
 %}
 %%
-[\n] { lc++; cc+=yyleng;}
-[ \t] { sc++; cc+=yyleng;}
-[^\t\n ]+ { wc++; cc+=yyleng;}
+\n
+{ line_count++; word_count++; }
+[ \t]+
+{ word_count++; } // Match spaces or tabs
+.
+{ char_count++; }
 %%
-int main(int argc ,char* argv[ ])
-{
- printf("Enter the input:\n");
- yylex();
- printf("The number of lines=%d\n",lc);
- printf("The number of spaces=%d\n",sc);
- printf("The number of words=%d\n",wc);
- printf("The number of characters are=%d\n",cc);
+int main() {
+FILE *file = fopen("input.c", "r");
+// Hardcoded file path
+if (!file) {
+perror("Error opening file");
+return 1;
 }
-int yywrap( )
-{
- return 1;
+yyin = file;
+yylex();
+printf("Lines: %d\n", line_count);
+printf("Words: %d\n", word_count);
+printf("Characters: %d\n", char_count);
+return 0;
 }
-
-
