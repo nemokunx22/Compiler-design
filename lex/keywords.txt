@@ -1,0 +1,101 @@
+//Akash V V
+//TLY21CS009
+//
+
+%{
+	#include<stdio.h>
+	#include<stdlib.h>
+	#include<string.h>
+	#include<ctype.h>
+%}
+
+ID [a-zA-Z][_a-zA-Z0-9]*
+DIGIT [0-9]+
+OP [-+*<>/=]
+COMMENT (\/\/[^\n]*)|\/\*([^*]|\*+[^\/])*\*+\/
+KEYWORD
+"include"|"break"|"case"|"char"|"printf"|"continue"|"default"|"do"|"double"|"else"|"float"|"for"|"if"|"int"|"long"|
+"return"|"sizeof"|"struct"|"switch"|"void"|"while"
+
+%%
+{COMMENT}	{ }
+{KEYWORD}	{printf("KEYWORD           : %s\n", yytext);}
+{ID}		{printf("IDENTIFIER        : %s\n", yytext);}
+{DIGIT}		{printf("NUMBER            : %s\n", yytext);}
+{OP}		{printf("OPERATOR          : %s\n", yytext);}
+[ \t\n]	{ }
+.		{printf("SPECIAL CHARACTER : %s\n", yytext);}
+%%
+
+int main()
+{
+	yyin = fopen("INPUT.c", "r");
+	yylex();
+	return 0;
+}
+
+
+INPUT.c:
+
+/* multi comment1
+comment2
+*/
+
+#include<stdio.h>
+void main()
+{
+	int a,=5,b=6,c;//line comment
+	c = a+b;
+	printf("sum is %d\n",c);
+}
+
+
+OUTPUT :
+
+SPECIAL CHARACTER : #
+KEYWORD           : include
+OPERATOR          : <
+IDENTIFIER        : stdio
+SPECIAL CHARACTER : .
+IDENTIFIER        : h
+OPERATOR          : >
+KEYWORD           : void
+IDENTIFIER        : main
+SPECIAL CHARACTER : (
+SPECIAL CHARACTER : )
+SPECIAL CHARACTER : {
+KEYWORD           : int
+IDENTIFIER        : a
+SPECIAL CHARACTER : ,
+OPERATOR          : =
+NUMBER            : 5
+SPECIAL CHARACTER : ,
+IDENTIFIER        : b
+OPERATOR          : =
+NUMBER            : 6
+SPECIAL CHARACTER : ,
+IDENTIFIER        : c
+SPECIAL CHARACTER : ;
+IDENTIFIER        : c
+OPERATOR          : =
+IDENTIFIER        : a
+OPERATOR          : +
+IDENTIFIER        : b
+SPECIAL CHARACTER : ;
+KEYWORD           : printf
+SPECIAL CHARACTER : (
+SPECIAL CHARACTER : "
+IDENTIFIER        : sum
+IDENTIFIER        : is
+SPECIAL CHARACTER : %
+IDENTIFIER        : d
+SPECIAL CHARACTER : \
+IDENTIFIER        : n
+SPECIAL CHARACTER : "
+SPECIAL CHARACTER : ,
+IDENTIFIER        : c
+SPECIAL CHARACTER : )
+SPECIAL CHARACTER : ;
+SPECIAL CHARACTER : }
+
+
