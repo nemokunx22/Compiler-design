@@ -7,6 +7,8 @@ TLY21CS009
 %{ 
 #include<stdio.h> 
 #include<math.h>
+int yylex(void);
+void yyerror();
 int flag=0; 
 %} 
 
@@ -43,7 +45,7 @@ E:E'+'E {$$=$1+$3;}
 
 |E'^'E {$$=pow($1,$3);}
 
-|'-' E %prec UMINUS { $$ = -$2; }
+|'-' E %prec UMINUS { $$ = -$2;}
 
 |'('E')' {$$=$2;} 
 
@@ -67,4 +69,3 @@ void yyerror()
 printf("\nEntered arithmetic expression is Invalid\n\n"); 
 flag=1; 
 } 
-
